@@ -23,24 +23,37 @@ double min(int x, int y, int z) {
 	cout << "1: Ввод верхнего предела\t";
 	cout << "2: Ввод нижнего предела\n";
 	cout << "3: Повторный ввод числа\t";
-	cout << "Ввод любого иного варианта для выхода из программы";
+	cout << "Ввод любого иного варианта для выхода из программы\t";
 	int k;
 	cin >> k;
 	switch (k) {
-	case 1: cin >> *left;
-	case 2: cin >> *right;
-	case 3: cin >> *z;
-	default: exit(1);
+	case 1: {
+		cout << "1: Ввод верхнего предела\t";
+		cin >> *left;
+	} 
+		  break;
+	case 2:{
+		cout << "2: Ввод нижнего предела\n";
+		cin >> *right;
+	}
+		  break;
+	case 3:{
+		cout << "3: Повторный ввод числа\t";
+		cin >> *z;
+	}
+	break;
 	};
+	return 0;
 };
 
-int predel(int left, int right) {
+int predel(int* left, int* right) {
 
 	double z;
+	cout << "Введите число\n";
 	cin >> z; //считываем число
 	if (int(z) != z) exit(1);
-	if (z<left || z>right) Menu(&left, &right, &z);
-	else return z;
+	while (z<*left || z>*right) Menu(left, right, &z);
+	if (z>=*left || z<=*right) return z;
 }
 
 int main()
@@ -53,17 +66,17 @@ int main()
 		switch (z) {
 		case 1: {
 			cout << "Функция возвращает наибольшее из 3 int\n";
-			cout << "Введите два числа: \n\n";
+			cout << "Введите три числа: \n\n";
 			int x, y, z;
 			cin >> x >> y >> z;
 			cout << "Наибольшее: " << min(x, y, z) << '\n';
 		}
 			  break;
 		case 2: {
-			cout << "Расчет определителя матрицы, матрица размером 3 на 3. Ввод чисел построчно. Числа только целые.\n";
+			cout << "Введите пределы\n";
 			int a, b;
 			cin >> a >> b;
-			cout << "]e]" << predel(a, b) << endl;
+			cout << a << "<" << predel(&a, &b) << "<" << b << endl;
 		}
 			  break;
 
